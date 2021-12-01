@@ -172,12 +172,12 @@ class RecentAdapter(private val homeFragmentImpl1Content: HomeFragmentImpl1_Cont
                 val lastVisible = layoutManager.findLastVisibleItemPosition()
                 val currentPosition = helper.adapterPosition
                 if (currentPosition in firstVisible..lastVisible) {
-                    viewModel.getRemoteUserApi(item).observe(homeFragmentImpl1Content, Observer { result ->
-                        result?.let {
-                            updateBook(item)
-                            viewModel.addRecent(result, setTimeAccessed = false)
-                        }
-                    })
+//                    viewModel.getRemoteUserApi(item).observe(homeFragmentImpl1Content, Observer { result ->
+//                        result?.let {
+//                            updateBook(item)
+//                            viewModel.addRecent(result, setTimeAccessed = false)
+//                        }
+//                    })
                 }
             } catch (e: Exception) {
                 //views could be destroyed during delay, do nothing

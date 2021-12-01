@@ -68,7 +68,7 @@ open class ReaderBaseActivityImpl4_Content : ReaderBaseActivityImpl3_Overlay() {
     protected open fun startNextBook() {
         currentBook.isFinished = true
         Temporary.USER_API_UPDATE_LIST.add(currentBook)
-        viewModel.addFinish(currentBook)
+//        viewModel.addFinish(currentBook)
         addFinishedDownload(currentBook)
         deleteFinishedFetchDownload(currentBook)
         //override in children
@@ -77,7 +77,7 @@ open class ReaderBaseActivityImpl4_Content : ReaderBaseActivityImpl3_Overlay() {
     protected open fun finishBook() {
         currentBook.isFinished = true
         Temporary.USER_API_UPDATE_LIST.add(currentBook)
-        viewModel.addFinish(currentBook)
+//        viewModel.addFinish(currentBook)
         addFinishedDownload(currentBook)
         //override in children
     }

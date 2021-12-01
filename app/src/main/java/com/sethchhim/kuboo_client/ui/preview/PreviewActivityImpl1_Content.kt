@@ -25,7 +25,7 @@ import timber.log.Timber
 open class PreviewActivityImpl1_Content : PreviewActivityImpl0_View() {
 
     private fun getLowResRequest(login: Login, requestOptions: RequestOptions): RequestBuilder<Drawable> {
-        val stringUrlLow = login.server + currentBook.linkThumbnail
+        val stringUrlLow = currentBook.getPreviewUrl()
         val glideUrlLow = stringUrlLow.toGlideUrl(login)
         return Glide.with(this)
                 .load(glideUrlLow)
@@ -90,7 +90,7 @@ open class PreviewActivityImpl1_Content : PreviewActivityImpl0_View() {
         val requestLowRes = getLowResRequest(loginItem, requestOptions)
         val stringUrlHigh = when (currentBook.isComic()) {
             true -> currentBook.getPreviewUrl(loginItem, Settings.THUMBNAIL_SIZE_RECENT)
-            false -> loginItem.server + currentBook.linkThumbnail
+            false -> currentBook.getPreviewUrl()
         }
         val glideUrlHigh = stringUrlHigh.toGlideUrl(loginItem)
         Glide.with(this)

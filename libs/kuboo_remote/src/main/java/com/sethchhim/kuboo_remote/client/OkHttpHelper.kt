@@ -1,6 +1,7 @@
 package com.sethchhim.kuboo_remote.client
 
 import android.accounts.NetworkErrorException
+import android.net.Uri
 import com.sethchhim.kuboo_remote.model.Login
 import com.sethchhim.kuboo_remote.service.remote.ParseService
 import com.sethchhim.kuboo_remote.util.Authentication
@@ -10,6 +11,7 @@ import okhttp3.Request
 import okhttp3.RequestBody
 import timber.log.Timber
 import java.net.MalformedURLException
+import java.net.URI
 import java.net.URL
 
 class OkHttpHelper(private val okHttpClient: OkHttpClient) {
@@ -18,16 +20,18 @@ class OkHttpHelper(private val okHttpClient: OkHttpClient) {
 
     @Throws(NetworkErrorException::class, MalformedURLException::class)
     fun getCall(login: Login, stringUrl: String, tag: String, cacheControl: CacheControl? = null): Call {
-        val url = URL(stringUrl)
+        var uri = URI.create(login.server)
+        uri = uri.resolve(stringUrl)
+
         val request = when (cacheControl == null) {
             true -> Request.Builder()
-                    .url(url)
+                    .url(uri.toString())
                     .get()
                     .header(Authentication.getAuthorizationHeaderName(), Authentication.getAuthorizationHeaderValue(login))
                     .tag(tag)
                     .build()
             false -> Request.Builder()
-                    .url(url)
+                    .url(uri.toString())
                     .get()
                     .cacheControl(cacheControl!!)
                     .header(Authentication.getAuthorizationHeaderName(), Authentication.getAuthorizationHeaderValue(login))

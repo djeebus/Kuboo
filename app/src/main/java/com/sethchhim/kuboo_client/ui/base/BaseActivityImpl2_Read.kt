@@ -69,7 +69,7 @@ open class BaseActivityImpl2_Read : BaseActivityImpl1_Dialog() {
                 isLoadingRequired = false
 
                 when (result?.isSuccessful ?: false) {
-                    true -> startBookmarkSearch(readData)
+                    true -> startPreload(readData)
                     false -> {
                         hideLoadingDialog()
                         showToastError()

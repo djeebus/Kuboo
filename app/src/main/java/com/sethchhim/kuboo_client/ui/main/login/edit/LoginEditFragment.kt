@@ -49,16 +49,6 @@ open class LoginEditFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
         addServerButton.setOnClickListener { onAddServerButtonClicked() }
         deleteServerButton.setOnClickListener { onDeleteServerButtonClicked() }
-        editTextServerAddress.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                when (p0?.isValid()) {
-                    true -> setStateServerValid()
-                    false -> setStateServerInvalid()
-                }
-            }
-        })
     }
 
     override fun onStart() {
@@ -133,8 +123,6 @@ open class LoginEditFragment : DaggerFragment() {
     private fun setStateServerInvalid() {
         textInputLayoutServer.error = getString(R.string.login_does_not_contain_opds_books_or_opds_comics)
     }
-
-    private fun CharSequence.isValid() = contains("/opds-comics/", ignoreCase = true) || contains("/opds-books/", ignoreCase = true)
 
     companion object {
         fun newInstance(login: Login?) = LoginEditFragment().apply {

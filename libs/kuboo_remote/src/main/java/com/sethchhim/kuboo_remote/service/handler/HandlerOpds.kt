@@ -164,79 +164,18 @@ class HandlerOpds(private val login: Login, private val saxList: MutableList<Boo
     private fun Attributes.isValueValid(value: String) = getValue(value) != null && getValue(value).isNotEmpty()
 
     private fun Attributes.get(value: String): String {
-        var string = getValue(value)
-        when {
-            string.contains("/opds-books/") -> {
-                val bits = string.split("/opds-books/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                string = bits[bits.size - 1]
-            }
-            string.contains("/opds-comics/") -> {
-                val bits = string.split("/opds-comics/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                string = bits[bits.size - 1]
-            }
-            string.contains("/opds/") -> {
-                val bits = string.split("/opds/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                string = bits[bits.size - 1]
-            }
-        }
-        return string
+        return getValue(value)
     }
 
     private fun Attributes.getLinkNavigation(value: String): String {
-        var string = getValue(value)
-        when {
-            string.contains("/opds-books/") -> string = try {
-                val bits = string.split("/opds-books/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                bits[bits.size - 1]
-            } catch (e: ArrayIndexOutOfBoundsException) {
-                string.replace("/opds-books/", "")
-            }
-            string.contains("/opds-comics/") -> string = try {
-                val bits = string.split("/opds-comics/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                bits[bits.size - 1]
-            } catch (e: ArrayIndexOutOfBoundsException) {
-                string.replace("/opds-comics/", "")
-            }
-            string.contains("/opds/") -> string = try {
-                val bits = string.split("/opds/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                bits[bits.size - 1]
-            } catch (e: ArrayIndexOutOfBoundsException) {
-                string.replace("/opds/", "")
-            }
-        }
-        return string
+        return getValue(value)
     }
 
     private fun Attributes.getLinkPse(): String {
-        var string = getValue("href")
-        when {
-            string.contains("/opds-books/") -> {
-                val bits1 = string.split("/opds-books/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                string = bits1[bits1.size - 1]
-                linkPse = true
-                val stringTotalPages = getValue("pse:count")
-                val bits2 = stringTotalPages.split("/opds-books/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                entity.TotalPages = bits2[bits2.size - 1]
-                totalPages = true
-            }
-            string.contains("/opds-comics/") -> {
-                val bits1 = string.split("/opds-comics/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                string = bits1[bits1.size - 1]
-                linkPse = true
-                val stringTotalPages = getValue("pse:count")
-                val bits2 = stringTotalPages.split("/opds-comics/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                entity.TotalPages = bits2[bits2.size - 1]
-                totalPages = true
-            }
-            //kuboo server linkpse
-            string.contains("/cache/images/?bookId=") -> {
-                linkPse = true
-                val stringTotalPages = getValue("pse:count")
-                entity.TotalPages = stringTotalPages
-                totalPages = true
-            }
-        }
-        return string
+        linkPse = true
+        entity.TotalPages = getValue("http://vaemendis.net/opds-pse/ns", "count")
+        totalPages = true
+        return getValue("href")
     }
 
     private fun stripHtml(html: String) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

@@ -100,7 +100,7 @@ class KubooRemote(context: Context, val networkIO: Executor, val mainThread: Exe
             }
 
     fun getRemoteUserApi(login: Login, book: Book) = Task_RemoteUserApiGet(this, login, book).liveData
-
+//
     fun putRemoteUserApi(login: Login, book: Book) = Task_RemoteUserApiPut(this, login, book).liveData
 
     fun cancelAllByTag(tag: String) = okHttpHelper.cancelAllByTag(tag)

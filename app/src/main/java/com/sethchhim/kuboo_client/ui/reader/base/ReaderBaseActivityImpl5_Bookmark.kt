@@ -44,7 +44,7 @@ open class ReaderBaseActivityImpl5_Bookmark : ReaderBaseActivityImpl4_Content() 
             true -> viewModel.addDownload(currentBook)
             false -> {
                 viewModel.addRecent(currentBook)
-                viewModel.putRemoteUserApi(currentBook)
+//                viewModel.putRemoteUserApi(currentBook)
             }
         }
 

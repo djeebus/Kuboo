@@ -67,7 +67,7 @@ class FetchService(val context: Context, okHttpClient: OkHttpClient, val mainThr
     }
 
     private fun createRequest(login: Login, book: Book, savePath: String): Request {
-        val stringUrl = book.server + book.linkAcquisition
+        val stringUrl = login.server + book.linkAcquisition
         val stringFileName = URL(stringUrl).guessFileName()
         val stringSavePath = "$savePath${File.separator}$stringFileName"
         return Request(stringUrl, stringSavePath).apply {

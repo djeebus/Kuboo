@@ -19,7 +19,7 @@ class Task_RemoteSearch(kubooRemote: KubooRemote, val login: Login, val stringQu
 
     init {
         kubooRemote.networkIO.execute {
-            val stringUrl = login.server + URL_PATH_SEARCH + stringQuery
+            val stringUrl = URL_PATH_SEARCH + stringQuery
             try {
                 val call = okHttpHelper.getCall(login, stringUrl, javaClass.simpleName)
                 val response = call.execute()

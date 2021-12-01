@@ -41,7 +41,7 @@ class GlideUtil {
                 onPreloadCallback = preloadCallback)
 
         preload(context = lifecycleOwner as Context,
-                stringUrl = book.server + book.getPse(Settings.MAX_PAGE_WIDTH, book.currentPage),
+                stringUrl = book.getPse(Settings.MAX_PAGE_WIDTH, book.currentPage),
                 onPreloadCallback = preloadCallback)
 
         return preloadLiveData

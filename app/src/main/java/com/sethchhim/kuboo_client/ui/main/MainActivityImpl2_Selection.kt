@@ -87,9 +87,9 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
     }
 
     protected fun startSelectionAddFinished(): Boolean {
-        viewModel.addFinishFromSelectedList().observe(this, Observer { result ->
-            result?.let { if (it) disableSelectionMode() }
-        })
+//        viewModel.addFinishFromSelectedList().observe(this, Observer { result ->
+//            result?.let { if (it) disableSelectionMode() }
+//        })
 
         if (!Settings.MARK_FINISHED) dialogUtil.getSnackBarMarkFinished(frameLayout).apply {
             setAction(R.string.main_settings) { showFragmentSettings() }
@@ -99,9 +99,9 @@ open class MainActivityImpl2_Selection : MainActivityImpl1_Content() {
     }
 
     protected fun startSelectionDeleteFinished(): Boolean {
-        viewModel.removeFinishFromSelectedList().observe(this, Observer { result ->
-            result?.let { if (it) disableSelectionMode() }
-        })
+//        viewModel.removeFinishFromSelectedList().observe(this, Observer { result ->
+//            result?.let { if (it) disableSelectionMode() }
+//        })
         return true
     }
 

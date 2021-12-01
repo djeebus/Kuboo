@@ -467,12 +467,12 @@ class BrowserContentAdapter(val browserFragment: BrowserBaseFragmentImpl2_Conten
                 val lastVisible = layoutManager.findLastVisibleItemPosition()
                 val currentPosition = holder.adapterPosition
                 if (currentPosition in firstVisible..lastVisible) {
-                    viewModel.getRemoteUserApi(book).observe(browserFragment, Observer { result ->
-                        if (result != null) {
-                            viewModel.updateBrowserItem(result)
-                            loadColorState(holder, result)
-                        }
-                    })
+//                    viewModel.getRemoteUserApi(book).observe(browserFragment, Observer { result ->
+//                        if (result != null) {
+//                            viewModel.updateBrowserItem(result)
+//                            loadColorState(holder, result)
+//                        }
+//                    })
                 }
             } catch (e: Exception) {
                 //views could be destroyed during delay, do nothing

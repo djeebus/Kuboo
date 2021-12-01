@@ -81,7 +81,7 @@ open class ReaderEpubActivityImpl3_Content : ReaderEpubActivityImpl2_Overlay(), 
     }
 
     override fun startNextBook() {
-        viewModel.addFinish(currentBook)
+//        viewModel.addFinish(currentBook)
         deleteFinishedFetchDownload(currentBook)
         startDownloadTracking(nextBook)
         startReader(ReadData(book = nextBook, bookmarksEnabled = false, sharedElement = null, source = source))
@@ -89,7 +89,7 @@ open class ReaderEpubActivityImpl3_Content : ReaderEpubActivityImpl2_Overlay(), 
     }
 
     override fun finishBook() {
-        viewModel.addFinish(currentBook)
+//        viewModel.addFinish(currentBook)
         startDownloadTracking(currentBook)
         exitActivity()
     }

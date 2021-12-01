@@ -60,15 +60,12 @@ class GlideRemoteFetcher internal constructor(private val client: Call.Factory, 
                 override fun onResponse(call: Call, response: Response) {
                     responseBody = response.body()
                     if (response.isSuccessful && responseBody != null) {
-                        when (viewModel.isActiveServerKuboo()) {
-                            true -> onResponseKuboo()
-                            false -> onResponseUbooquity()
+                        if (response.header("content-type", "image/jpeg") == "text/json") {
+                            onResponseKuboo()
+                        } else {
+                            handleResponse()
                         }
                     }
-                }
-
-                private fun onResponseUbooquity() {
-                    handleResponse()
                 }
 
                 private fun onResponseKuboo() {

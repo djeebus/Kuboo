@@ -10,6 +10,7 @@ import com.sethchhim.kuboo_remote.util.Settings.MAX_PAGE_WIDTH_DEFAULT
 import kotlinx.android.parcel.Parcelize
 import timber.log.Timber
 import java.io.File
+import java.net.URI
 import java.net.URL
 import java.text.NumberFormat
 import java.util.*
@@ -72,14 +73,14 @@ data class Book(
             result = linkThumbnail
         }
 
-        return result
+        return toAbsolute(result)
     }
 
     fun getPse(maxWidth: Int, index: Int): String {
         var result = linkPse
         result = result.replace("{pageNumber}", index.toMinimumTwoDigits())
         result = result.replace("{maxWidth}", maxWidth.toString())
-        return result
+        return toAbsolute(result)
     }
 
     fun setTimeAccessed() {
@@ -257,13 +258,19 @@ data class Book(
 
     fun isMatchPreview(book: Book) = getPreviewUrl() == book.getPreviewUrl()
 
-    fun getAcquisitionUrl() = server + linkAcquisition
+    fun getAcquisitionUrl() = toAbsolute(linkAcquisition)
 
-    fun getPreviewUrl() = server + linkThumbnail
+    private fun toAbsolute(href: String): String {
+        var uri = URI.create(server)
+        uri = uri.resolve(href)
+        return uri.toString()
+    }
 
-    fun getPreviewUrl(maxWidth: Int) = server + getPseCover(maxWidth)
+    fun getPreviewUrl() = toAbsolute(linkThumbnail)
 
-    fun getPreviewUrl(login: Login, maxWidth: Int) = login.server + getPseCover(maxWidth)
+    fun getPreviewUrl(maxWidth: Int) = getPseCover(maxWidth)
+
+    fun getPreviewUrl(login: Login, maxWidth: Int) = getPseCover(maxWidth)
 
     fun getPreviewUrlMatchingWidthTo(previewUrl: String?): String? {
         if (previewUrl == null) {

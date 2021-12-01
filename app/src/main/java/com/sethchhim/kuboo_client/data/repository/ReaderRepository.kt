@@ -88,7 +88,7 @@ class ReaderRepository(private val systemUtil: SystemUtil, private val kubooLoca
         val bookList = mutableListOf<PageUrl>()
         book.apply {
             for (index in 0 until totalPages) {
-                val stringUrl = server + getPse(Settings.MAX_PAGE_WIDTH, index)
+                val stringUrl = getPse(Settings.MAX_PAGE_WIDTH, index)
                 bookList.add(PageUrl(index, stringUrl, ""))
             }
         }

@@ -1,6 +1,7 @@
 package com.sethchhim.kuboo_client.data.repository
 
 import androidx.lifecycle.MutableLiveData
+import com.sethchhim.kuboo_client.Constants
 import com.sethchhim.kuboo_client.Constants.URL_PATH_LATEST
 import com.sethchhim.kuboo_client.util.SystemUtil
 import com.sethchhim.kuboo_remote.KubooRemote
@@ -20,7 +21,7 @@ class RemoteRepository(private val kubooRemote: KubooRemote, private val systemU
     }
 
     internal fun getListByBook(login: Login, book: Book) = when (systemUtil.isNetworkAllowed()) {
-        true -> kubooRemote.getListByUrl(login, login.server + book.linkSubsection)
+        true -> kubooRemote.getListByUrl(login, book.linkSubsection)
         false -> MutableLiveData<List<Book>>().apply { this.delayedFail() }
     }
 
@@ -49,22 +50,22 @@ class RemoteRepository(private val kubooRemote: KubooRemote, private val systemU
     }
 
     internal fun getLatestList(login: Login) = when (systemUtil.isNetworkAllowed()) {
-        true -> kubooRemote.getListByUrl(login, login.server + URL_PATH_LATEST)
+        true -> kubooRemote.getListByUrl(login, URL_PATH_LATEST)
         false -> MutableLiveData<List<Book>>().apply { this.delayedFail() }
     }
 
     internal fun getPaginationByBook(login: Login, book: Book) = when (systemUtil.isNetworkAllowed()) {
-        true -> kubooRemote.getPaginationByBook(login, login.server + book.linkSubsection)
+        true -> kubooRemote.getPaginationByBook(login, book.linkSubsection)
         false -> MutableLiveData<Pagination>().apply { this.delayedFail() }
     }
 
     internal fun getFirstByBook(login: Login, book: Book) = when (systemUtil.isNetworkAllowed()) {
-        true -> kubooRemote.getFirstByBook(login, book, login.server + book.linkSubsection)
+        true -> kubooRemote.getFirstByBook(login, book, book.linkSubsection)
         false -> MutableLiveData<Book>().apply { this.delayedFail() }
     }
 
     internal fun getItemCountByBook(login: Login, book: Book) = when (systemUtil.isNetworkAllowed()) {
-        true -> kubooRemote.getItemCountByBook(login, login.server + book.linkSubsection)
+        true -> kubooRemote.getItemCountByBook(login, book.linkSubsection)
         false -> MutableLiveData<String>().apply { this.delayedFail() }
     }
 
@@ -89,15 +90,12 @@ class RemoteRepository(private val kubooRemote: KubooRemote, private val systemU
     }
 
     internal fun getRemoteFile(login: Login, stringUrl: String, saveDir: File) = when (systemUtil.isNetworkAllowed()) {
-        true -> kubooRemote.getFile(login, login.server + stringUrl, saveDir)
+        true -> kubooRemote.getFile(login, stringUrl, saveDir)
         false -> MutableLiveData<File>().apply { this.delayedFail() }
     }
 
     //bookmark
-    internal fun getRemoteUserApi(login: Login, book: Book) = when (systemUtil.isNetworkAllowed()) {
-        true -> kubooRemote.getRemoteUserApi(login, book)
-        false -> MutableLiveData<Book>().apply { this.delayedFail() }
-    }
+    internal fun getRemoteUserApi(login: Login, book: Book) = MutableLiveData<Book>().apply { this.delayedFail() }
 
     internal fun putRemoteUserApi(login: Login, book: Book) = when (systemUtil.isNetworkAllowed()) {
         true -> kubooRemote.putRemoteUserApi(login, book)
